@@ -1,0 +1,16 @@
+version: '1'
+services:
+  web:
+    build: .
+    command:   ["/bin/bash", "-c", "/book-store-devops/docker-entrypoint.sh"]
+    volumes:
+      - .:/book-store-devops
+    ports:
+      - "3000:3000"
+    x-develop:
+      watch:
+        - action: sync
+          path: .
+          target: /book-store-devops
+        - action: rebuild
+          path: package.json
